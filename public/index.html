@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Celebrating Neharika's Special Day ✨</title>
+
+  <!-- Sleek Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Great+Vibes&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Ambient Particles Layer -->
+  <div id="ambient-particles"></div>
+
+  <!-- Fireworks Canvas Layer (bursts in background) -->
+  <canvas id="fireworks-canvas" class="hidden"></canvas>
+
+  <!-- Decorations Container for Floating Balloons -->
+  <div id="decorations-container"></div>
+
+  <!-- THEATER CURTAINS LAYER (Red-Brown Velvet Curtains) -->
+  <div class="curtains-wrapper" id="curtains-wrapper">
+    <div class="curtain-valance"></div>
+    <div class="curtain left-curtain">
+      <div class="curtain-folds"></div>
+      <div class="curtain-fringe"></div>
+    </div>
+    <div class="curtain right-curtain">
+      <div class="curtain-folds"></div>
+      <div class="curtain-fringe"></div>
+    </div>
+  </div>
+
+  <!-- STAGE 0: The Dark Room (Pull-String Light Switch Overlay) -->
+  <div id="dark-room-overlay" class="overlay">
+
+    <!-- Welcome Cord Pull UI -->
+    <div class="overlay-content" id="overlay-welcome-state">
+      <div class="welcome-badge">✨ Royal Birthday Premiere ✨</div>
+      <h1 class="dark-title">Neharika's Birthday Celebration 2026</h1>
+      <p class="dark-subtitle">Pull the cord to open the curtains and start the grand celebration...</p>
+
+      <!-- Pull Cord Switch -->
+      <div class="switch-container">
+        <div class="cord-hanger"></div>
+        <div class="pull-string" id="light-cord">
+          <div class="string-line"></div>
+          <div class="string-handle" id="cord-handle"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MAIN APP CONTENT (Revealed behind the opening curtains) -->
+  <main id="app-container" class="hidden">
+
+    <!-- STAGE 1: Balloon Decorator (Pump) -->
+    <div class="decorator-section" id="balloon-stage">
+      <div class="glass-card decorator-card">
+        <p class="decorator-desc" id="decorator-desc">Now lets decorate balloon to ceiling!!</p>
+
+        <!-- Balloon Pump Visual -->
+        <div class="pump-container" id="pump-visual-container">
+          <div class="pump-nozzle"></div>
+          <!-- Inflating balloon sitting on nozzle with internal shapes -->
+          <div class="pump-inflating-balloon" id="pump-balloon">
+            <div class="balloon-shape-inner classic" id="pump-balloon-shape"></div>
+            <div class="balloon-knot" id="pump-balloon-knot"></div>
+          </div>
+
+          <!-- Sibling-based handle stem/bar -->
+          <div class="pump-handle" id="pump-handle-lever">
+            <div class="handle-bar"></div>
+            <div class="handle-shaft"></div>
+          </div>
+
+          <div class="pump-body"></div>
+          <div class="pump-base"></div>
+        </div>
+
+        <button type="button" id="pump-btn" class="glass-btn primary-btn">Pump Balloon 🎈</button>
+      </div>
+    </div>
+
+    <!-- STAGE 2: Bunting Decorator (Triangle Banner) -->
+    <div class="decorator-section hidden" id="bunting-stage">
+      <div class="glass-card decorator-card">
+        <p class="decorator-desc" id="bunting-desc">Now lets decorate the room with colorful buntings!!</p>
+
+        <!-- Bunting Preview Visual -->
+        <div class="bunting-preview">
+          <div class="flag red"></div>
+          <div class="flag yellow"></div>
+          <div class="flag blue"></div>
+          <div class="flag green"></div>
+          <div class="flag orange"></div>
+        </div>
+
+        <button type="button" id="bunting-btn" class="glass-btn primary-btn">Hang Bunting Banner 📐</button>
+      </div>
+    </div>
+
+    <!-- STAGE 3: Fairy Lights Decorator -->
+    <div class="decorator-section hidden" id="lights-stage">
+      <div class="glass-card decorator-card">
+        <p class="decorator-desc" id="lights-desc">Let's hang some fairy lights around the room! 🧶</p>
+
+        <!-- Fairy Lights Preview Visual -->
+        <div class="lights-preview">
+          <div class="preview-wire"></div>
+          <div class="preview-bulb warm"></div>
+          <div class="preview-bulb warm"></div>
+          <div class="preview-bulb warm"></div>
+          <div class="preview-bulb warm"></div>
+          <div class="preview-bulb warm"></div>
+        </div>
+
+        <button type="button" id="hang-lights-btn" class="glass-btn primary-btn">Hang Lights 🧶</button>
+        <button type="button" id="turn-on-lights-btn" class="glass-btn primary-btn hidden" style="margin-top: 12px;">Turn On Lights 💡</button>
+      </div>
+    </div>
+
+    <!-- STAGE 4: Neon Background Sign Decorator -->
+    <div class="decorator-section hidden" id="neon-stage">
+      <div class="glass-card decorator-card">
+        <p class="decorator-desc" id="neon-desc">Let's add a beautiful neon sign to the background! ✨</p>
+
+        <!-- Neon Preview -->
+        <div class="neon-preview">
+          <span class="neon-preview-text">HB</span>
+        </div>
+
+        <button type="button" id="neon-btn" class="glass-btn primary-btn">Decorate Background ✨</button>
+      </div>
+    </div>
+
+    <!-- STAGE 5: Cake Decorator -->
+    <div class="decorator-section hidden" id="cake-stage">
+      <div class="glass-card decorator-card">
+        <p class="decorator-desc" id="cake-desc">A helper baby is coming with the birthday cake! 🎂👶</p>
+        <button type="button" id="bring-cake-btn" class="glass-btn primary-btn">Bring Cake 🎂</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Stage Scene: Cake Stand & Baby Layer -->
+  <div id="cake-scene-layer" class="hidden">
+    <!-- Elegant Pedestal Stand -->
+    <div id="cake-stand" class="cake-stand">
+      <div class="stand-plate"></div>
+      <div class="stand-pillar"></div>
+      <div class="stand-base"></div>
+      
+      <!-- The Cake on the Stand (initially empty, revealed when placed) -->
+      <div id="placed-cake" class="birthday-cake hidden">
+        <div class="cake-tier tier-2"></div>
+        <div class="cake-tier tier-1"></div>
+        <div class="cake-candles">
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Secret Message Box (Sealed Envelope) -->
+    <div id="message-box" class="message-envelope hidden">
+      <div class="notification-badge"></div>
+      <div class="envelope-flap"></div>
+      <div class="envelope-paper">💌</div>
+      <div class="envelope-body"></div>
+    </div>
+
+    <!-- The Walking Baby Carrying a Cake -->
+    <div id="baby-carrier" class="baby-carrier">
+      <div class="baby-character">
+        <div class="baby-hair-curl"></div>
+        <div class="baby-head">
+          <div class="baby-eye left"></div>
+          <div class="baby-eye right"></div>
+          <div class="baby-cheek left"></div>
+          <div class="baby-cheek right"></div>
+          <div class="baby-mouth-smile"></div>
+        </div>
+        <div class="baby-body-diaper"></div>
+        <div class="baby-arm left-arm"></div>
+        <div class="baby-arm right-arm"></div>
+        <div class="baby-leg left-leg"></div>
+        <div class="baby-leg right-leg"></div>
+      </div>
+      
+      <!-- The Cake carried by the baby -->
+      <div id="carried-cake" class="birthday-cake carried">
+        <div class="cake-tier tier-2"></div>
+        <div class="cake-tier tier-1"></div>
+        <div class="cake-candles">
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- People Gathering Layer (anchored at floor level, behind the table) -->
+  <div id="people-layer" class="hidden">
+    <!-- Person 1 (left far) -->
+    <div class="person person-left-1">
+      <div class="party-hat"></div>
+      <div class="person-head">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="smile"></div>
+      </div>
+      <div class="person-body"></div>
+      <div class="person-arm left-arm"></div>
+      <div class="person-arm right-arm"></div>
+    </div>
+    <!-- Person 2 (left close) -->
+    <div class="person person-left-2">
+      <div class="party-hat"></div>
+      <div class="person-head">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="smile"></div>
+      </div>
+      <div class="person-body"></div>
+      <div class="person-arm left-arm"></div>
+      <div class="person-arm right-arm"></div>
+    </div>
+    <!-- Person 3 (right close) -->
+    <div class="person person-right-1">
+      <div class="party-hat"></div>
+      <div class="person-head">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="smile"></div>
+      </div>
+      <div class="person-body"></div>
+      <div class="person-arm left-arm"></div>
+      <div class="person-arm right-arm"></div>
+    </div>
+    <!-- Person 4 (right far) -->
+    <div class="person person-right-2">
+      <div class="party-hat"></div>
+      <div class="person-head">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="smile"></div>
+      </div>
+      <div class="person-body"></div>
+      <div class="person-arm left-arm"></div>
+      <div class="person-arm right-arm"></div>
+    </div>
+  </div>
+
+  <!-- Neon Birthday Sign Layer (positioned on the background wall) -->
+  <div id="neon-sign-layer" class="hidden">
+    <div class="neon-sign">
+      <div class="neon-line neon-line-1">Happy</div>
+      <div class="neon-line neon-line-2">Birthday</div>
+      <div class="neon-line neon-line-3">Neharika</div>
+    </div>
+    <!-- Neharika's Birthday Photo Frames (Left & Right) -->
+    <div class="birthday-photo-container photo-left">
+      <img src="assets/WhatsApp Image 2026-08-16 at 11.39.13 PM.jpeg" alt="Neharika" class="birthday-photo">
+    </div>
+    <div class="birthday-photo-container photo-right">
+      <img src="assets/WhatsApp Image 2026-08-16 at 11.39.13 PM.jpeg" alt="Neharika" class="birthday-photo">
+    </div>
+  </div>
+
+  <!-- Fairy Lights Decoration Layer (cascading strings from top) -->
+  <div id="fairy-lights-container" class="hidden"></div>
+
+  <!-- Make a Wish Button (appears at the end) -->
+  <button type="button" id="write-wish-btn" class="glass-btn primary-btn wish-btn hidden">Make a Wish! ✨🕯️</button>
+
+  <!-- Wish Modal Popup -->
+  <div id="wish-modal" class="modal-overlay hidden">
+    <div class="modal-content glass-card">
+      <button type="button" class="modal-close-btn" id="close-wish-modal">&times;</button>
+      <h2 class="modal-title">Make a Wish, Neharika! 🌟✨</h2>
+      <p class="modal-desc">Close your eyes, think of something beautiful, and type it below. Make it special! 🎂🕯️</p>
+      
+      <div class="modal-body" id="modal-form-body">
+        <textarea id="wish-textarea" placeholder="My birthday wish is..."></textarea>
+        <button type="button" id="submit-wish-btn" class="glass-btn primary-btn">Cast Wish 💖</button>
+      </div>
+
+      <div id="wish-success-msg" class="hidden">
+        <div class="success-icon">✨🌸</div>
+        <p class="success-text">Your wish has been cast into the stars! May all your dreams come true! 💖✨</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Memories Modal -->
+  <div id="memories-modal" class="modal-overlay hidden">
+    <div class="modal-content glass-card memories-card">
+      <button type="button" class="modal-close-btn" id="close-memories-modal">&times;</button>
+      
+      <!-- Manual Birthday Letter -->
+      <div class="birthday-letter">
+        <div class="letter-stamp">💌</div>
+        <div class="letter-body">
+          <p class="letter-line dear">Dearest Neharika, 🌸</p>
+          <p class="letter-line paragraph">
+            On this incredibly special day, I want to wish you a very Happy Birthday! 🌟
+            You bring so much warmth, light, and joy into the lives of everyone around you. Your laughter is contagious, and your kindness is a constant inspiration.
+          </p>
+          <p class="letter-line paragraph">
+            May this new chapter of your life bring you endless happiness, peace, success, and the courage to chase all your biggest dreams. You deserve the absolute best today and always! 💖✨
+          </p>
+          <p class="letter-line signature">With love & warm wishes,</p>
+          <p class="letter-line signer">Pritam</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photo Lightbox Modal -->
+  <div id="photo-lightbox" class="modal-overlay hidden">
+    <div class="lightbox-content">
+      <button type="button" class="modal-close-btn" id="close-lightbox">&times;</button>
+      <img id="lightbox-img" src="" alt="Enlarged Photo">
+    </div>
+  </div>
+
+  <!-- Frontend Logic -->
+  <script src="script.js"></script>
+</body>
+
+</html>

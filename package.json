@@ -1,0 +1,14 @@
+{
+  "name": "neharika-birthday-2026",
+  "version": "1.0.0",
+  "description": "Interactive birthday website for Neharika with Netlify serverless functions",
+  "main": "index.js",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build step required'"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "netlify-cli": "^17.33.0"
+  }
+}

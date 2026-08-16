@@ -1,0 +1,2607 @@
+/* CSS Variables & Theme Setup */
+:root {
+  --bg-gradient: linear-gradient(135deg, #07030e 0%, #15092a 50%, #06020b 100%);
+  --glass-bg: rgba(26, 12, 54, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-glow: 0 8px 32px 0 rgba(103, 58, 183, 0.15);
+  --text-main: #f3ecff;
+  --text-muted: #b5a2d6;
+  --accent-gold: #ffd700;
+  --accent-pink: #ff4081;
+  --font-title: 'Playfair Display', Georgia, serif;
+  --font-body: 'Outfit', sans-serif;
+  --transition-speed: 0.3s;
+}
+
+/* Reset and Core Layout */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Background floating particles */
+#ambient-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(255, 215, 0, 0.25);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatUp 8s infinite linear;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(105vh) translateX(0) scale(0.5);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.8;
+  }
+
+  90% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(-5vh) translateX(80px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* THEATER CURTAINS (Red-Brown Velvet) */
+.curtains-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+
+.curtain-valance {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: radial-gradient(ellipse at 50% 0%, #6e1c1c 0%, #451010 60%, #290808 100%);
+  z-index: 115;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+  border-bottom: 3px solid #d4af37;
+  transition: transform 2.4s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.curtain {
+  position: absolute;
+  top: 0;
+  width: 50vw;
+  height: 100vh;
+  z-index: 110;
+  /* Luxurious Red-Brown Velvet Gradient with realistic vertical folds */
+  background: linear-gradient(90deg,
+      #240707 0%,
+      #541414 7%,
+      #3b0c0c 14%,
+      #691a1a 21%,
+      #400e0e 28%,
+      #781f1f 35%,
+      #3b0c0c 42%,
+      #6b1b1b 50%,
+      #420f0f 58%,
+      #731e1e 66%,
+      #360b0b 74%,
+      #5e1616 82%,
+      #290808 90%,
+      #1d0505 100%);
+  box-shadow: inset 0 0 70px rgba(0, 0, 0, 0.9), 0 0 50px rgba(0, 0, 0, 0.8);
+  transition: transform 2.6s cubic-bezier(0.75, 0, 0.15, 1), filter 2.6s ease;
+  overflow: hidden;
+}
+
+.left-curtain {
+  left: 0;
+  transform-origin: left center;
+  border-right: 2px solid #140303;
+}
+
+.right-curtain {
+  right: 0;
+  transform-origin: right center;
+  border-left: 2px solid #140303;
+}
+
+.curtain-folds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(90deg,
+      transparent,
+      transparent 30px,
+      rgba(255, 255, 255, 0.04) 30px,
+      rgba(255, 255, 255, 0.04) 60px,
+      rgba(0, 0, 0, 0.25) 60px,
+      rgba(0, 0, 0, 0.25) 90px);
+  pointer-events: none;
+}
+
+.curtain-fringe {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  background: linear-gradient(180deg, #d4af37 0%, #8c6d12 100%);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Opening Animations when cord pulled */
+.curtains-wrapper.curtains-open .left-curtain {
+  transform: translateX(-92%) scaleX(0.24);
+  filter: drop-shadow(20px 0 35px rgba(0, 0, 0, 0.95));
+}
+
+.curtains-wrapper.curtains-open .right-curtain {
+  transform: translateX(92%) scaleX(0.24);
+  filter: drop-shadow(-20px 0 35px rgba(0, 0, 0, 0.95));
+}
+
+.curtains-wrapper.curtains-open .curtain-valance {
+  transform: translateY(-15%);
+}
+
+/* STAGE 0: The Dark Room Switch Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 150;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 1.2s ease, visibility 1.2s ease;
+}
+
+.overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.overlay-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 520px;
+  padding: 30px 24px;
+  background: rgba(20, 7, 26, 0.85);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 24px;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.welcome-badge {
+  background: linear-gradient(90deg, #d4af37, #f76b1c);
+  color: #fff;
+  padding: 5px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 15px rgba(247, 107, 28, 0.4);
+}
+
+.dark-title {
+  font-family: var(--font-title);
+  font-size: 2.1rem;
+  color: #fff;
+  margin-bottom: 10px;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.dark-subtitle {
+  color: #d1c2eb;
+  font-size: 1rem;
+  margin-bottom: 35px;
+  line-height: 1.5;
+}
+
+/* Light Pull Cord Switch styling */
+.switch-container {
+  position: relative;
+  height: 220px;
+  width: 60px;
+}
+
+.cord-hanger {
+  width: 8px;
+  height: 16px;
+  background: #d4af37;
+  border-radius: 4px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.pull-string {
+  width: 20px;
+  height: 100%;
+  margin: 0 auto;
+  cursor: grab;
+  position: relative;
+  transition: transform 0.1s ease;
+}
+
+.pull-string:active {
+  cursor: grabbing;
+}
+
+.string-line {
+  width: 2px;
+  height: 140px;
+  background: linear-gradient(180deg, #ffd700, #d4af37);
+  margin: 0 auto;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
+
+.string-handle {
+  width: 26px;
+  height: 52px;
+  background: radial-gradient(circle, #ffe680 0%, #d4af37 60%, #8c6d12 100%);
+  border-radius: 13px;
+  margin: -8px auto 0;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.7), inset 0 2px 5px rgba(255, 255, 255, 0.6);
+  position: relative;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.string-handle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 22px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+/* APP CONTAINER */
+#app-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px 8px 20px;
+  z-index: 10;
+  position: relative;
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 1.5s cubic-bezier(0.1, 0.8, 0.3, 1), transform 1.5s cubic-bezier(0.1, 0.8, 0.3, 1);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* Align pump card to bottom of screen */
+  min-height: 94vh;
+  /* Make sure it spans the viewport height */
+  pointer-events: none;
+  /* Let clicks pass through empty areas to balloons */
+}
+
+#app-container.show-app {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Glass Card */
+.glass-card {
+  pointer-events: auto;
+  /* Keep card interactive */
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-glow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 20px 30px;
+  text-align: center;
+  position: relative;
+  overflow: visible;
+  /* Ensure balloons are not clipped when released */
+  max-width: 400px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.decorator-title {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 10px;
+  text-shadow: 0 0 15px rgba(255, 64, 129, 0.3);
+}
+
+.balloon-counter {
+  display: inline-block;
+  background: rgba(255, 64, 129, 0.12);
+  border: 1px solid rgba(255, 64, 129, 0.25);
+  color: #ff4081;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(255, 64, 129, 0.1);
+  transition: all 0.3s ease;
+}
+
+.balloon-counter.completed {
+  background: rgba(76, 175, 80, 0.15);
+  border-color: rgba(76, 175, 80, 0.3);
+  color: #4caf50;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+}
+
+.decorator-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+/* Balloon Pump Visual Container */
+.pump-container {
+  position: relative;
+  width: 150px;
+  height: 220px;
+  margin: 30px auto;
+  cursor: pointer;
+}
+
+/* Nozzle pointing left */
+.pump-nozzle {
+  position: absolute;
+  left: 20px;
+  top: 135px;
+  width: 40px;
+  height: 12px;
+  background: #7a7a7a;
+  border-radius: 4px 0 0 4px;
+  z-index: 5;
+}
+
+/* Inflating balloon on the nozzle */
+.pump-inflating-balloon {
+  position: absolute;
+  left: -20px;
+  /* Aligned with nozzle tip */
+  top: 110px;
+  width: 48px;
+  height: 56px;
+  transform-origin: right center;
+  transform: scale(0.35);
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 4;
+}
+
+/* Base shape styles */
+.balloon-shape-inner {
+  transition: background-color 0.3s ease;
+}
+
+/* Classic Shape */
+.balloon-shape-inner.classic {
+  width: 48px;
+  height: 56px;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  background: currentColor;
+  box-shadow: inset -3px -3px 8px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.balloon-shape-inner.classic::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 20px;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 6px solid currentColor;
+}
+
+/* Heart Shape */
+.balloon-shape-inner.heart {
+  width: 38px;
+  height: 38px;
+  background: currentColor;
+  position: relative;
+  transform: rotate(-45deg);
+  margin: 10px auto 0;
+  box-shadow: inset -3px 3px 8px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.balloon-shape-inner.heart::before,
+.balloon-shape-inner.heart::after {
+  content: "";
+  width: 38px;
+  height: 38px;
+  background: inherit;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.balloon-shape-inner.heart::before {
+  top: -19px;
+  left: 0;
+}
+
+.balloon-shape-inner.heart::after {
+  left: 19px;
+  top: 0;
+}
+
+/* Shared Knot style */
+.balloon-knot {
+  position: absolute;
+  bottom: -4px;
+  left: 20px;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 6px solid currentColor;
+  z-index: 5;
+}
+
+/* T-bar Handle */
+.pump-handle {
+  position: absolute;
+  left: 35px;
+  top: 20px;
+  width: 80px;
+  height: 65px;
+  transition: transform 0.1s ease;
+  z-index: 6;
+}
+
+.handle-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 12px;
+  background: #8e8e93;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.handle-shaft {
+  position: absolute;
+  top: 12px;
+  left: 34px;
+  width: 12px;
+  height: 53px;
+  background: linear-gradient(90deg, #c7c7cc, #e5e5ea, #c7c7cc);
+}
+
+/* Cylinder Body */
+.pump-body {
+  position: absolute;
+  left: 55px;
+  top: 85px;
+  width: 40px;
+  height: 100px;
+  background: linear-gradient(135deg, #ab47bc, #7b1fa2);
+  /* Rich Purple body */
+  border-radius: 8px 8px 0 0;
+  z-index: 5;
+  box-shadow: inset -3px 0 8px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Rectangular Base */
+.pump-base {
+  position: absolute;
+  left: 25px;
+  top: 185px;
+  width: 100px;
+  height: 15px;
+  background: #4a148c;
+  /* Dark base */
+  border-radius: 4px;
+  z-index: 5;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Active animation state (handle pressed down) */
+.pump-active .pump-handle {
+  transform: translateY(45px);
+}
+
+/* Glass Button Styles */
+.glass-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 30px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 64, 129, 0.2);
+}
+
+.glass-btn:active {
+  transform: translateY(0);
+}
+
+.primary-btn {
+  background: linear-gradient(90deg, #ff4081, #ff80ab);
+  border: none;
+  box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
+}
+
+.primary-btn:hover {
+  background: linear-gradient(90deg, #ff80ab, #ff4081);
+  box-shadow: 0 6px 22px rgba(255, 64, 129, 0.6);
+}
+
+/* Floating Balloons Container & Styling */
+#decorations-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 105;
+  /* In front of opened curtains (100) but behind valance (115) */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.balloon-wrapper {
+  position: fixed;
+  z-index: 105;
+  width: 50px;
+  height: 60px;
+  transition: left 2.2s cubic-bezier(0.25, 0.8, 0.25, 1), top 2.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  pointer-events: auto;
+  /* Enable click capture */
+  animation: balloonSway 3.5s ease-in-out infinite alternate;
+}
+
+.balloon.classic {
+  width: 50px;
+  height: 60px;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  position: relative;
+  background: currentColor;
+  box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+.balloon.classic::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 21px;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 6px solid currentColor;
+}
+
+.balloon.heart {
+  width: 36px;
+  height: 36px;
+  background: currentColor;
+  position: relative;
+  transform: rotate(-45deg);
+  margin: 12px auto 0;
+  box-shadow: inset -3px 3px 10px rgba(0, 0, 0, 0.15), 0 5px 12px rgba(0, 0, 0, 0.25);
+}
+
+.balloon.heart::before,
+.balloon.heart::after {
+  content: "";
+  width: 36px;
+  height: 36px;
+  background: inherit;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.balloon.heart::before {
+  top: -18px;
+  left: 0;
+}
+
+.balloon.heart::after {
+  left: 18px;
+  top: 0;
+}
+
+/* Knot for heart balloon */
+.balloon-wrapper .balloon-knot {
+  position: absolute;
+  bottom: -2px;
+  left: 21px;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 6px solid currentColor;
+  z-index: 2;
+}
+
+.balloon-string {
+  width: 2px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  position: absolute;
+  bottom: -80px;
+  left: 24px;
+}
+
+@keyframes balloonSway {
+  0% {
+    transform: rotate(-4deg) translateY(0);
+  }
+
+  100% {
+    transform: rotate(4deg) translateY(-8px);
+  }
+}
+
+/* Bunting Stage & Preview Styling */
+.bunting-preview {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 40px auto;
+  width: 150px;
+  position: relative;
+  border-top: 2px dashed rgba(255, 255, 255, 0.4);
+  padding-top: 8px;
+}
+
+.bunting-preview .flag {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 18px solid #ff4081;
+}
+
+.bunting-preview .flag.red {
+  border-top-color: #ff4081;
+}
+
+.bunting-preview .flag.yellow {
+  border-top-color: #ffeb3b;
+}
+
+.bunting-preview .flag.blue {
+  border-top-color: #2196f3;
+}
+
+.bunting-preview .flag.green {
+  border-top-color: #4caf50;
+}
+
+.bunting-preview .flag.orange {
+  border-top-color: #ff9800;
+}
+
+/* Floating Bunting Banner Elements */
+.bunting-banner-wrapper {
+  position: fixed;
+  left: 0;
+  width: 100vw;
+  height: 80px;
+  z-index: 125;
+  /* Elevate above curtains (100) and valance (115) to overlap them */
+  transition: top 2.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* The straight bunting string */
+.bunting-string {
+  width: 100vw;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35) 20%, rgba(255, 255, 255, 0.35) 80%, transparent);
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 5vw;
+}
+
+.bunting-flag {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 32px solid currentColor;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+  transform-origin: top center;
+  animation: windSway 4s ease-in-out infinite alternate;
+}
+
+@keyframes windSway {
+  0% {
+    transform: rotate(-6deg);
+  }
+
+  100% {
+    transform: rotate(6deg);
+  }
+}
+
+/* MOBILE RESPONSIVE MEDIA QUERIES */
+@media (max-width: 600px) {
+
+  /* Welcome Switch Overlay Adjustments */
+  .dark-title {
+    font-size: 1.6rem !important;
+    padding: 0 10px;
+  }
+
+  .dark-subtitle {
+    font-size: 0.95rem !important;
+    padding: 0 15px;
+    margin-bottom: 25px !important;
+  }
+
+  .welcome-badge {
+    font-size: 0.75rem !important;
+  }
+
+  /* Pull string switch container */
+  .switch-container {
+    height: 180px !important;
+  }
+
+  .string-line {
+    height: 100px !important;
+  }
+
+  /* Glass card layouts */
+  .glass-card {
+    padding: 24px 20px !important;
+    max-width: 90% !important;
+    margin-bottom: 10px !important;
+  }
+
+  .decorator-desc {
+    font-size: 0.95rem !important;
+  }
+
+  /* Bunting banner flag scaling for smaller viewports */
+  .bunting-flag {
+    border-left: 10px solid transparent !important;
+    border-right: 10px solid transparent !important;
+    border-top: 18px solid currentColor !important;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) !important;
+  }
+
+  .bunting-string {
+    padding: 0 2vw !important;
+  }
+
+  /* Curtains valance height adjustment */
+  .curtain-valance {
+    height: 48px !important;
+  }
+}
+
+/* Clickable Bouncing Balloon Styles */
+.balloon-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  /* Allow interaction */
+  cursor: pointer;
+  transform-origin: bottom center;
+}
+
+.balloon-inner.bounce {
+  animation: balloonBounceAnim var(--bounce-dur, 0.6s) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes balloonBounceAnim {
+  0% {
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+
+  30% {
+    transform: scale(var(--scale-x-squish, 0.8), var(--scale-y-stretch, 1.2)) translateY(var(--bounce-height, -35px)) rotate(var(--bounce-tilt, -5deg));
+  }
+
+  50% {
+    transform: scale(var(--scale-x-stretch, 1.15), var(--scale-y-squish, 0.85)) translateY(var(--bounce-dip, 10px)) rotate(var(--bounce-tilt-opp, 3deg));
+  }
+
+  70% {
+    transform: scale(0.95, 1.05) translateY(var(--bounce-rebound, -8px)) rotate(0deg);
+  }
+
+  100% {
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+}
+
+/* ============================================================ */
+/*  STAGE 3: FAIRY LIGHTS DECORATION                            */
+/* ============================================================ */
+
+/* Preview card visual inside the glass-card */
+.lights-preview {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 14px;
+  margin: 30px auto 40px;
+  width: 180px;
+  height: 50px;
+  padding-top: 14px;
+}
+
+.preview-wire {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.preview-bulb {
+  width: 10px;
+  height: 14px;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  background: rgba(255, 215, 0, 0.15);
+  box-shadow: 0 0 4px rgba(255, 215, 0, 0.1);
+  position: relative;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.preview-bulb::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 3px;
+  width: 4px;
+  height: 5px;
+  background: #888;
+  border-radius: 2px 2px 0 0;
+}
+
+.preview-bulb.lit {
+  background: #ffe680;
+  box-shadow: 0 0 10px rgba(255, 230, 128, 0.8), 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+/* Fairy Lights Full Decoration Layer */
+#fairy-lights-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 106; /* Above balloons (105) but below valance (115) */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Each vertical string of lights */
+.fairy-string {
+  position: absolute;
+  top: 110vh; /* Start off-screen at the bottom */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  transition: top 2.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* The wire running down between bulbs */
+.fairy-string .wire-segment {
+  width: 1px;
+  height: var(--wire-h, 28px);
+  background: rgba(255, 255, 255, 0.08);
+  transition: background 1s ease;
+}
+
+.fairy-string.string-on .wire-segment {
+  background: rgba(255, 230, 128, 0.15);
+}
+
+/* Individual fairy light bulb */
+.fairy-bulb {
+  width: 6px;
+  height: 8px;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  background: rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+  transition: background 0.6s ease, box-shadow 0.6s ease, transform 0.6s ease;
+  position: relative;
+}
+
+/* Tiny cap on top of bulb */
+.fairy-bulb::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 1.5px;
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1px;
+}
+
+/* Lit state for individual bulbs */
+.fairy-bulb.bulb-on {
+  background: #ffe680;
+  box-shadow: 0 0 6px rgba(255, 230, 128, 0.9), 0 0 14px rgba(255, 215, 0, 0.5), 0 0 28px rgba(255, 200, 0, 0.15);
+  transform: scale(1.15);
+}
+
+.fairy-bulb.bulb-on::before {
+  background: rgba(255, 230, 128, 0.6);
+}
+
+/* Twinkling animation on lit bulbs */
+.fairy-bulb.bulb-on.twinkle {
+  animation: twinkleGlow 2.5s ease-in-out infinite alternate;
+  animation-delay: var(--twinkle-delay, 0s);
+}
+
+@keyframes twinkleGlow {
+  0% {
+    box-shadow: 0 0 6px rgba(255, 230, 128, 0.9), 0 0 14px rgba(255, 215, 0, 0.5);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 3px rgba(255, 230, 128, 0.5), 0 0 8px rgba(255, 215, 0, 0.25);
+    opacity: 0.65;
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(255, 230, 128, 1), 0 0 18px rgba(255, 215, 0, 0.6);
+    opacity: 1;
+  }
+}
+
+/* Horizontal top wire connecting all vertical strings */
+.fairy-top-wire {
+  position: fixed;
+  top: 110vh; /* Start off-screen at bottom */
+  left: 0;
+  width: 100vw;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  z-index: 106;
+  pointer-events: none;
+  transition: top 2.5s cubic-bezier(0.25, 0.8, 0.25, 1), background 1.5s ease, box-shadow 1.5s ease;
+}
+
+.fairy-top-wire.wire-lit {
+  background: rgba(255, 230, 128, 0.2);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
+}
+
+/* Horizontal fairy light row along the top wire */
+.fairy-horizontal-row {
+  position: fixed;
+  top: 110vh; /* Start off-screen at bottom */
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 2vw;
+  z-index: 107;
+  pointer-events: none;
+  transition: top 2.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.fairy-horizontal-row .fairy-bulb {
+  width: 5px;
+  height: 7px;
+}
+
+/* ============================================================ */
+/*  STAGE 4: NEON BIRTHDAY SIGN                                 */
+/* ============================================================ */
+
+/* Preview in the card */
+.neon-preview {
+  margin: 25px auto 35px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+.neon-preview-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.2rem;
+  color: #ffe680;
+  text-shadow:
+    0 0 7px rgba(255, 230, 128, 0.8),
+    0 0 15px rgba(255, 215, 0, 0.5),
+    0 0 30px rgba(255, 200, 0, 0.3);
+}
+
+/* Neon Sign Layer - sits behind balloons/lights on the back wall */
+#neon-sign-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 110; /* In front of balloons (105) and lights, but behind valance (115) */
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 6vh;
+}
+
+/* Birthday Photo Containers - sit below neon sign in background, on left & right */
+.birthday-photo-container {
+  position: absolute;
+  top: 23vh;
+  width: 260px;
+  height: 325px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 64, 129, 0.5);
+  border-radius: 12px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 64, 129, 0.2);
+  z-index: 5;
+  opacity: 0;
+  pointer-events: auto; /* Enable hover interaction */
+  cursor: pointer;
+  transition: opacity 1.5s ease 0.5s, transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
+}
+
+.birthday-photo-container.photo-left {
+  left: 10vw;
+  transform: scale(0.9) rotate(-3deg);
+}
+
+.birthday-photo-container.photo-right {
+  right: 10vw;
+  transform: scale(0.9) rotate(3deg);
+}
+
+/* When the neon layer is revealed, fade in the photo frames */
+#neon-sign-layer:not(.hidden) .birthday-photo-container.photo-left {
+  opacity: 1;
+  transform: scale(1) rotate(-3deg);
+}
+
+#neon-sign-layer:not(.hidden) .birthday-photo-container.photo-right {
+  opacity: 1;
+  transform: scale(1) rotate(3deg);
+}
+
+.birthday-photo-container.photo-left:hover {
+  transform: scale(1.06) rotate(-1deg);
+  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 64, 129, 0.45);
+  border-color: var(--accent-pink);
+}
+
+.birthday-photo-container.photo-right:hover {
+  transform: scale(1.06) rotate(1deg);
+  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 64, 129, 0.45);
+  border-color: var(--accent-pink);
+}
+
+.birthday-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* The sign container */
+.neon-sign {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* Each line of the neon text */
+.neon-line {
+  font-family: 'Great Vibes', cursive;
+  color: #ffe680;
+  line-height: 1.1;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* Initially OFF: no glow */
+  text-shadow: none;
+}
+
+/* Lit state for each line */
+.neon-line.neon-on {
+  opacity: 1;
+  transform: scale(1);
+  text-shadow:
+    0 0 7px rgba(255, 230, 128, 0.9),
+    0 0 20px rgba(255, 215, 0, 0.6),
+    0 0 40px rgba(255, 200, 0, 0.35),
+    0 0 80px rgba(255, 180, 0, 0.15);
+  animation: neonPulse 3s ease-in-out infinite alternate;
+}
+
+/* Line 1: "Happy" */
+.neon-line-1 {
+  font-size: 5rem;
+}
+
+/* Line 2: "Birthday" */
+.neon-line-2 {
+  font-size: 5.5rem;
+  margin-top: -10px;
+}
+
+/* Line 3: "Neharika" */
+.neon-line-3 {
+  font-size: 3.8rem;
+  margin-top: 5px;
+  color: #ffb3d9; /* Soft pink tint for the name */
+}
+
+.neon-line-3.neon-on {
+  text-shadow:
+    0 0 7px rgba(255, 179, 217, 0.9),
+    0 0 20px rgba(255, 100, 170, 0.6),
+    0 0 40px rgba(255, 80, 150, 0.35),
+    0 0 80px rgba(255, 60, 130, 0.15);
+}
+
+/* Subtle neon breathing / pulsing glow */
+@keyframes neonPulse {
+  0% {
+    filter: brightness(1);
+    text-shadow:
+      0 0 7px rgba(255, 230, 128, 0.9),
+      0 0 20px rgba(255, 215, 0, 0.6),
+      0 0 40px rgba(255, 200, 0, 0.35);
+  }
+  50% {
+    filter: brightness(0.85);
+    text-shadow:
+      0 0 4px rgba(255, 230, 128, 0.6),
+      0 0 12px rgba(255, 215, 0, 0.35),
+      0 0 25px rgba(255, 200, 0, 0.15);
+  }
+  100% {
+    filter: brightness(1.05);
+    text-shadow:
+      0 0 10px rgba(255, 230, 128, 1),
+      0 0 25px rgba(255, 215, 0, 0.7),
+      0 0 50px rgba(255, 200, 0, 0.4),
+      0 0 90px rgba(255, 180, 0, 0.2);
+  }
+}
+
+/* Flicker animation for the initial turn-on effect */
+@keyframes neonFlicker {
+  0% { opacity: 0; }
+  10% { opacity: 0.8; }
+  12% { opacity: 0.2; }
+  20% { opacity: 0.9; }
+  22% { opacity: 0.4; }
+  30% { opacity: 1; }
+  32% { opacity: 0.7; }
+  40% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+.neon-line.neon-flicker {
+  animation: neonFlicker 1s ease-out forwards;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .neon-line-1 {
+    font-size: 3rem;
+  }
+  .neon-line-2 {
+    font-size: 3.4rem;
+    margin-top: -5px;
+  }
+  .neon-line-3 {
+    font-size: 2.4rem;
+    margin-top: 3px;
+  }
+}
+
+/* ============================================================ */
+/*  STAGE 5: CAKE SCENE & BABY CHARACTER                        */
+/* ============================================================ */
+
+#cake-scene-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 95; /* Behind neon/lights overlay, but in front of background */
+  pointer-events: none;
+}
+
+/* Pedestal Cake Stand */
+.cake-stand {
+  position: absolute;
+  top: 57vh;
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  width: 150px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 1s ease, transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: auto; /* Enable clicks */
+}
+
+.cake-stand.reveal {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+.stand-plate {
+  width: 160px;
+  height: 14px;
+  background: linear-gradient(90deg, #e5c158 0%, #ffd700 50%, #b29330 100%);
+  border-radius: 7px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.stand-pillar {
+  width: 22px;
+  height: 60px;
+  background: linear-gradient(90deg, #1f1f1f 0%, #444 50%, #111 100%);
+  border-left: 2px solid #ffd700;
+  border-right: 2px solid #ffd700;
+}
+
+.stand-base {
+  width: 100px;
+  height: 16px;
+  background: linear-gradient(90deg, #1f1f1f 0%, #444 50%, #111 100%);
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+  border-top: 2px solid #ffd700;
+}
+
+/* Birthday Cake */
+.birthday-cake {
+  position: absolute;
+  bottom: 76px; /* Sits on the stand plate (90px height - 14px plate height) */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
+  z-index: 20;
+  transform-origin: bottom center;
+}
+
+.birthday-cake.carried {
+  position: absolute;
+  bottom: 75px; /* Positioned relative to the baby's hands */
+  left: 65px;
+  transform: scale(0.7);
+}
+
+.birthday-cake.hidden {
+  display: none !important;
+}
+
+/* Tier 1 (Base Tier) */
+.cake-tier {
+  width: 110px;
+  height: 45px;
+  border-radius: 12px 12px 4px 4px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tier-1 {
+  background: linear-gradient(180deg, #ff80df 0%, #e600ac 100%); /* Strawberry/Pink */
+  z-index: 2;
+}
+
+.tier-2 {
+  width: 80px;
+  height: 38px;
+  background: linear-gradient(180deg, #ffcc80 0%, #ff9800 100%); /* Vanilla/Orange */
+  z-index: 3;
+  margin-bottom: -6px; /* Overlap tiers */
+}
+
+/* Frosting drips */
+.cake-tier::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: #ffffff; /* Cream frosting */
+  border-radius: 12px 12px 4px 4px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 40%, 90% 90%, 80% 50%, 70% 85%, 60% 40%, 50% 95%, 40% 50%, 30% 80%, 20% 40%, 10% 90%, 0% 40%);
+}
+
+.tier-2::after {
+  background: #663300; /* Chocolate frosting */
+}
+
+/* Cake Candles */
+.cake-candles {
+  position: absolute;
+  top: -24px;
+  z-index: 4;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  width: 100%;
+}
+
+.candle {
+  width: 6px;
+  height: 22px;
+  background: repeating-linear-gradient(
+    45deg,
+    #ff4081,
+    #ff4081 4px,
+    #ffffff 4px,
+    #ffffff 8px
+  );
+  border-radius: 2px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  pointer-events: auto; /* Ensure clickable */
+  cursor: pointer;
+}
+
+.candle::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -5px;
+  z-index: 10;
+}
+
+.candle:nth-child(2) {
+  height: 26px;
+  top: -4px;
+  background: repeating-linear-gradient(
+    45deg,
+    #2196f3,
+    #2196f3 4px,
+    #ffffff 4px,
+    #ffffff 8px
+  );
+}
+
+.candle:nth-child(3) {
+  background: repeating-linear-gradient(
+    45deg,
+    #4caf50,
+    #4caf50 4px,
+    #ffffff 4px,
+    #ffffff 8px
+  );
+}
+
+/* Flame animation */
+.flame {
+  width: 8px;
+  height: 12px;
+  background: radial-gradient(circle at center, #ffffff 10%, #ffeb3b 40%, #ff5722 80%);
+  border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+  position: absolute;
+  top: -12px;
+  left: -1px;
+  box-shadow: 0 0 10px #ff9800, 0 0 20px #ff5722;
+  animation: flameFlicker 0.6s infinite alternate;
+  transform-origin: bottom center;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.candle.lit .flame {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes flameFlicker {
+  0% {
+    transform: scale(0.9) rotate(-2deg);
+  }
+  100% {
+    transform: scale(1.1) rotate(2deg);
+  }
+}
+
+/* ============================================================ */
+/*  BABY CARRIER & CHARACTER DESIGN                             */
+/* ============================================================ */
+
+.baby-carrier {
+  position: absolute;
+  top: calc(57vh - 105px);
+  left: -150px; /* Start off-screen */
+  width: 140px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 15;
+  transition: left 4.5s linear; /* Smooth walking translation */
+}
+
+/* Walking state triggers animations */
+.baby-carrier.walking .baby-leg.left-leg {
+  animation: legWalk 0.6s infinite alternate;
+}
+
+.baby-carrier.walking .baby-leg.right-leg {
+  animation: legWalk 0.6s infinite alternate-reverse;
+}
+
+.baby-carrier.walking .baby-character {
+  animation: bodyBob 0.6s infinite alternate;
+}
+
+/* Cheering state triggers hands raising/waving */
+.baby-carrier.cheering .baby-arm.left-arm {
+  animation: armWave 0.4s infinite alternate;
+}
+
+.baby-carrier.cheering .baby-arm.right-arm {
+  animation: armWave 0.4s infinite alternate-reverse;
+}
+
+.baby-carrier.cheering .baby-character {
+  animation: bodyJump 0.4s infinite alternate;
+}
+
+/* Stylized CSS baby components */
+.baby-character {
+  position: relative;
+  width: 80px;
+  height: 120px;
+}
+
+.baby-hair-curl {
+  position: absolute;
+  top: -10px;
+  left: 36px;
+  width: 12px;
+  height: 12px;
+  border: 3px solid #ffcc80;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  transform: rotate(30deg);
+}
+
+.baby-head {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  width: 60px;
+  height: 60px;
+  background: #ffdbb5;
+  border-radius: 50% 50% 48% 48%;
+  box-shadow: inset 0 -3px 8px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.15);
+  z-index: 5;
+}
+
+.baby-eye {
+  position: absolute;
+  top: 25px;
+  width: 8px;
+  height: 8px;
+  background: #222;
+  border-radius: 50%;
+}
+
+.baby-eye.left { left: 16px; }
+.baby-eye.right { right: 16px; }
+
+.baby-cheek {
+  position: absolute;
+  top: 32px;
+  width: 10px;
+  height: 6px;
+  background: rgba(255, 64, 129, 0.4);
+  border-radius: 50%;
+}
+
+.baby-cheek.left { left: 10px; }
+.baby-cheek.right { right: 10px; }
+
+.baby-mouth-smile {
+  position: absolute;
+  bottom: 12px;
+  left: 25px;
+  width: 10px;
+  height: 6px;
+  border: 2px solid #ff8080;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+}
+
+.baby-body-diaper {
+  position: absolute;
+  top: 55px;
+  left: 17px;
+  width: 46px;
+  height: 48px;
+  background: #ffdbb5;
+  border-radius: 20px 20px 24px 24px;
+  z-index: 4;
+}
+
+/* The Diaper overlay */
+.baby-body-diaper::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -2px;
+  width: 50px;
+  height: 25px;
+  background: #ffffff;
+  border-radius: 0 0 25px 25px;
+  border-top: 3px solid #e0e0e0;
+  box-shadow: inset 0 -2px 5px rgba(0,0,0,0.05);
+}
+
+/* Baby Arms carrying the cake forwards */
+.baby-arm {
+  position: absolute;
+  width: 25px;
+  height: 12px;
+  background: #ffdbb5;
+  border-radius: 6px;
+  z-index: 6;
+  transform-origin: left center;
+}
+
+.left-arm {
+  top: 70px;
+  left: 10px;
+  transform: rotate(20deg);
+}
+
+.right-arm {
+  top: 70px;
+  left: 45px;
+  transform: rotate(-10deg);
+  z-index: 25; /* Sits over the cake visual helper */
+}
+
+/* Stubby walking legs */
+.baby-leg {
+  position: absolute;
+  bottom: 10px;
+  width: 16px;
+  height: 24px;
+  background: #ffdbb5;
+  border-radius: 8px;
+  z-index: 3;
+  transform-origin: top center;
+}
+
+.left-leg {
+  left: 22px;
+}
+
+.right-leg {
+  left: 42px;
+}
+
+/* Animations declarations */
+@keyframes legWalk {
+  0% {
+    transform: rotate(-25deg);
+  }
+  100% {
+    transform: rotate(25deg);
+  }
+}
+
+@keyframes bodyBob {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes armWave {
+  0% {
+    transform: rotate(-40deg);
+  }
+  100% {
+    transform: rotate(40deg);
+  }
+}
+
+@keyframes bodyJump {
+  0% {
+    transform: translateY(0) scaleY(1);
+  }
+  100% {
+    transform: translateY(-15px) scaleY(0.95);
+  }
+}
+
+/* Confetti Sparkles */
+.confetti-piece {
+  position: fixed;
+  width: 12px;
+  height: 8px;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 1;
+  border-radius: 2px;
+  animation: confettiBlast var(--dur) cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes confettiBlast {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--tx), var(--ty), 0) rotate(var(--rot)) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* ============================================================ */
+/*  PEOPLE GATHERING LAYER & CHARACTER DESIGN                  */
+/* ============================================================ */
+
+#people-layer {
+  position: fixed;
+  top: calc(57vh + 90px); /* Anchor at the table base floor level */
+  left: 0;
+  width: 100vw;
+  height: 0;
+  z-index: 90; /* Right behind the cake stand (95) */
+  pointer-events: none;
+}
+
+.person {
+  position: absolute;
+  bottom: 0;
+  width: 55px;
+  height: 105px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: left 3s cubic-bezier(0.1, 0.8, 0.3, 1), 
+              right 3s cubic-bezier(0.1, 0.8, 0.3, 1), 
+              opacity 2s ease,
+              transform 2s ease;
+}
+
+/* Initial slide-in target positions when gathered */
+#people-layer.gathered .person {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Symmetrical positioning targets */
+.person-left-1 {
+  left: -100px;
+}
+#people-layer.gathered .person-left-1 {
+  left: calc(50% - 240px);
+}
+
+.person-left-2 {
+  left: -100px;
+}
+#people-layer.gathered .person-left-2 {
+  left: calc(50% - 165px);
+}
+
+.person-right-1 {
+  right: -100px;
+}
+#people-layer.gathered .person-right-1 {
+  right: calc(50% - 165px);
+}
+
+.person-right-2 {
+  right: -100px;
+}
+#people-layer.gathered .person-right-2 {
+  right: calc(50% - 240px);
+}
+
+/* Stylized head & faces */
+.person-head {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 6;
+  box-shadow: inset 0 -2px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.person-head .eye {
+  position: absolute;
+  top: 15px;
+  width: 5px;
+  height: 5px;
+  background: #333;
+  border-radius: 50%;
+}
+
+.person-head .eye.left { left: 10px; }
+.person-head .eye.right { right: 10px; }
+
+.person-head .smile {
+  position: absolute;
+  bottom: 8px;
+  left: 15px;
+  width: 8px;
+  height: 4px;
+  border: 2px solid #e25c5c;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Stylized body outfits */
+.person-body {
+  width: 34px;
+  height: 52px;
+  border-radius: 14px 14px 4px 4px;
+  margin-top: -6px;
+  z-index: 5;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+/* Party Hats */
+.party-hat {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 22px solid var(--accent-pink);
+  position: absolute;
+  top: -16px;
+  z-index: 8;
+}
+
+.party-hat::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 5px #fff;
+}
+
+/* Person Waving Arms */
+.person-arm {
+  position: absolute;
+  width: 7px;
+  height: 32px;
+  border-radius: 4px;
+  z-index: 4;
+  transform-origin: top center;
+}
+
+.person-arm.left-arm {
+  top: 42px;
+  left: 2px;
+  transform: rotate(15deg);
+}
+
+.person-arm.right-arm {
+  top: 42px;
+  right: 2px;
+  transform: rotate(-15deg);
+}
+
+/* Unique skin, outfit and hat color configurations for variety */
+.person-left-1 .person-head { background: #ffdbb5; }
+.person-left-1 .person-arm { background: #ffdbb5; }
+.person-left-1 .person-body { background: #2196f3; } /* Blue shirt */
+.person-left-1 .party-hat { border-bottom-color: #ffeb3b; } /* Yellow hat */
+
+.person-left-2 .person-head { background: #c69c6d; }
+.person-left-2 .person-arm { background: #c69c6d; }
+.person-left-2 .person-body { background: #9c27b0; } /* Purple shirt */
+.person-left-2 .party-hat { border-bottom-color: #ff4081; } /* Pink hat */
+
+.person-right-1 .person-head { background: #e0ac69; }
+.person-right-1 .person-arm { background: #e0ac69; }
+.person-right-1 .person-body { background: #4caf50; } /* Green shirt */
+.person-right-1 .party-hat { border-bottom-color: #ff9800; } /* Orange hat */
+
+.person-right-2 .person-head { background: #f3c2c2; }
+.person-right-2 .person-arm { background: #f3c2c2; }
+.person-right-2 .person-body { background: #ff9800; } /* Orange shirt */
+.person-right-2 .party-hat { border-bottom-color: #00e5ff; } /* Cyan hat */
+
+/* Cheering & Waving Animations */
+@keyframes wavePersonArmLeft {
+  0% { transform: rotate(20deg); }
+  100% { transform: rotate(160deg); }
+}
+
+@keyframes wavePersonArmRight {
+  0% { transform: rotate(-20deg); }
+  100% { transform: rotate(-160deg); }
+}
+
+@keyframes personHop {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+/* Enable animations once gathered in the crowd */
+#people-layer.gathered .person-arm.left-arm {
+  animation: wavePersonArmLeft 0.35s infinite alternate ease-in-out;
+}
+
+#people-layer.gathered .person-arm.right-arm {
+  animation: wavePersonArmRight 0.35s infinite alternate-reverse ease-in-out;
+}
+
+#people-layer.gathered .person {
+  animation: personHop 0.45s infinite alternate ease-in-out;
+}
+
+/* Stagger jumping times to feel organic */
+.person-left-1 { animation-delay: 0.12s !important; }
+.person-left-2 { animation-delay: 0.35s !important; }
+.person-right-1 { animation-delay: 0s !important; }
+.person-right-2 { animation-delay: 0.22s !important; }
+
+/* ============================================================ */
+/*  WISH BUTTON & MODAL POPUP DESIGN                            */
+/* ============================================================ */
+
+/* Floating Write-Wish Button */
+.wish-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, 40px);
+  z-index: 1000;
+  padding: 10px 24px;
+  font-size: 1rem;
+  border-radius: 50px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease, transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+  box-shadow: 0 0 15px rgba(255, 64, 129, 0.4), inset 0 1px 1px rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wish-btn.reveal {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+  animation: wishBounce 2s infinite alternate ease-in-out;
+}
+
+@keyframes wishBounce {
+  0% { transform: translate(-50%, 0); }
+  100% { transform: translate(-50%, -8px); }
+}
+
+/* Modal Overlay Blur */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 5, 20, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Photo Lightbox Modal Styles */
+#photo-lightbox {
+  z-index: 2200; /* Higher than regular modal overlay (2000) */
+  background: rgba(5, 2, 10, 0.9);
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#lightbox-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 64, 129, 0.3);
+  object-fit: contain;
+  border: 2px solid rgba(255, 64, 129, 0.4);
+  transform: scale(0.9);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#photo-lightbox.show #lightbox-img {
+  transform: scale(1);
+}
+
+/* Modal Content Card */
+.modal-content {
+  width: 90%;
+  max-width: 480px;
+  padding: 35px;
+  border-radius: 24px;
+  position: relative;
+  transform: scale(0.9);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.1);
+  text-align: center;
+}
+
+.modal-overlay.show .modal-content {
+  transform: scale(1);
+}
+
+/* Close Button */
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 2.2rem;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+  line-height: 1;
+}
+
+.modal-close-btn:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* Titles and Descs */
+.modal-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.7rem;
+  color: #fff;
+  margin-bottom: 8px;
+  background: linear-gradient(45deg, #ff4081, #ffeb3b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.modal-desc {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 24px;
+}
+
+/* Textarea input */
+.modal-body textarea {
+  width: 100%;
+  height: 130px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 14px;
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: none;
+  margin-bottom: 24px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+}
+
+.modal-body textarea:focus {
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 10px rgba(255, 64, 129, 0.4);
+}
+
+/* Success Message inside Modal */
+#wish-success-msg {
+  padding: 15px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-icon {
+  font-size: 3.5rem;
+  margin-bottom: 12px;
+  animation: pulse 1s infinite alternate;
+}
+
+.success-text {
+  font-size: 1.15rem;
+  color: #4caf50;
+  font-weight: bold;
+}
+
+/* Cursor Sparkle Particle */
+.sparkle-particle {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 9999;
+  box-shadow: 0 0 6px currentColor;
+  transform: translate(-50%, -50%);
+  animation: sparkleAnim var(--dur) cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes sparkleAnim {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--vx)), calc(-50% + var(--vy))) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Guest Cheering Animation */
+.person.cheering-active {
+  animation: superHop 0.4s infinite alternate ease-in-out !important;
+}
+
+.person.cheering-active .person-arm.left-arm {
+  animation: wavePersonArmLeftFast 0.15s infinite alternate ease-in-out !important;
+}
+
+.person.cheering-active .person-arm.right-arm {
+  animation: wavePersonArmRightFast 0.15s infinite alternate-reverse ease-in-out !important;
+}
+
+@keyframes superHop {
+  0% { transform: translateY(0) scaleY(1); }
+  100% { transform: translateY(-35px) scaleY(0.9); }
+}
+
+@keyframes wavePersonArmLeftFast {
+  0% { transform: rotate(10deg); }
+  100% { transform: rotate(170deg); }
+}
+
+@keyframes wavePersonArmRightFast {
+  0% { transform: rotate(-10deg); }
+  100% { transform: rotate(-170deg); }
+}
+
+/* ============================================================ */
+/*  MESSAGE ENVELOPE (REPLACES GIFT BOX)                        */
+/* ============================================================ */
+.message-envelope {
+  position: absolute;
+  bottom: 4vh;
+  right: 4vw;
+  width: 72px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 64, 129, 0.5);
+  border-radius: 8px;
+  z-index: 105;
+  pointer-events: auto;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+  transition: opacity 1s ease, transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 8px 25px rgba(255, 64, 129, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow: visible;
+  animation: floatEnvelope 3s infinite alternate ease-in-out;
+}
+
+@keyframes floatEnvelope {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-6px) rotate(3deg); }
+}
+
+/* Pulsing Notification Badge */
+.notification-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 14px;
+  height: 14px;
+  background-color: #ff4081;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: 0 0 10px #ff4081, 0 0 20px rgba(255, 64, 129, 0.4);
+  pointer-events: none;
+  animation: badgePulse 1.5s infinite ease-in-out;
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 8px #ff4081, 0 0 15px rgba(255, 64, 129, 0.4);
+  }
+  50% {
+    transform: scale(1.3);
+    box-shadow: 0 0 15px #ff4081, 0 0 30px #ff4081;
+  }
+}
+
+.message-envelope.reveal {
+  opacity: 1;
+}
+
+.message-envelope:hover {
+  transform: scale(1.08) rotate(-2deg);
+  border-color: var(--accent-pink);
+  box-shadow: 0 12px 30px rgba(255, 64, 129, 0.5);
+}
+
+.envelope-paper {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.8rem;
+  z-index: 1;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.message-envelope:hover .envelope-paper {
+  transform: translateX(-50%) translateY(-18px) scale(1.1);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: -1.5px;
+  left: -1.5px;
+  width: 72px;
+  height: 25px;
+  background: rgba(255, 64, 129, 0.15);
+  border: 1.5px solid rgba(255, 64, 129, 0.5);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  z-index: 3;
+  transform-origin: top;
+  transition: transform 0.4s ease;
+}
+
+.message-envelope:hover .envelope-flap {
+  transform: rotateX(180deg) translateY(1px);
+  z-index: 0;
+}
+
+.envelope-body {
+  position: absolute;
+  bottom: -1.5px;
+  left: -1.5px;
+  width: 72px;
+  height: 50px;
+  border-radius: 0 0 8px 8px;
+  background: linear-gradient(135deg, rgba(20, 7, 26, 0.9) 0%, rgba(35, 10, 45, 0.95) 100%);
+  border: 1.5px solid rgba(255, 64, 129, 0.5);
+  clip-path: polygon(0 0, 0% 100%, 100% 100%, 100% 0, 50% 55%);
+  z-index: 2;
+  box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================================ */
+/*  MEMORIES POLAROID SLIDESHOW                                 */
+/* ============================================================ */
+.memories-card {
+  max-width: 500px !important;
+}
+
+/* Birthday Letter Box */
+.birthday-letter {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 30px;
+  margin-top: 20px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  text-align: left;
+}
+
+.letter-stamp {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 2.5rem;
+  opacity: 0.85;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+  transform: rotate(8deg);
+  animation: floatStamp 3s infinite alternate ease-in-out;
+}
+
+@keyframes floatStamp {
+  0% { transform: rotate(8deg) translateY(0); }
+  100% { transform: rotate(12deg) translateY(-4px); }
+}
+
+.letter-body {
+  font-family: 'Caveat', cursive;
+  font-size: 1.65rem;
+  line-height: 1.5;
+  color: #fffdec;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.letter-line.dear {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-pink);
+  margin-bottom: 15px;
+}
+
+.letter-line.paragraph {
+  margin-bottom: 15px;
+  text-indent: 15px;
+}
+
+.letter-line.signature {
+  margin-top: 30px;
+  margin-bottom: 5px;
+  text-align: right;
+  font-size: 1.5rem;
+  opacity: 0.9;
+}
+
+.letter-line.signer {
+  text-align: right;
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.5rem;
+  color: var(--accent-yellow);
+  margin-top: 0;
+  text-shadow: 0 0 10px rgba(255, 235, 59, 0.4);
+}
+
+/* Mic blowing prompt info */
+.mic-instruction-overlay {
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(10, 5, 20, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--accent-pink);
+  border-radius: 50px;
+  padding: 12px 30px;
+  color: #fff;
+  font-size: 1.1rem;
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 5px 25px rgba(255, 64, 129, 0.3);
+  animation: pulse 1.5s infinite alternate;
+}
+
+/* Fireworks Background Canvas */
+#fireworks-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 85; /* Behind people and stand, in front of curtains/balloon bg */
+  pointer-events: none;
+}
+
+/* Final Celebration Card (revealed after candles are blown out) */
+.final-celebration-card {
+  padding: 20px 40px;
+  text-align: center;
+  border: 2px solid var(--accent-pink);
+  box-shadow: 0 0 30px rgba(255, 64, 129, 0.4);
+  background: var(--glass-bg);
+  border-radius: 24px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  max-width: 500px;
+  width: 100%;
+}
+.final-celebration-card h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  color: #ff4081;
+  margin: 0 0 10px 0;
+}
+.final-celebration-card p {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  color: #fff;
+  margin: 0;
+}
+
+/* ============================================================ */
+/*  MOBILE RESPONSIVE OVERRIDES                                 */
+/* ============================================================ */
+@media (max-width: 600px) {
+  /* Final Celebration Card styling */
+  .final-celebration-card {
+    padding: 15px 25px !important;
+    width: 90% !important;
+    max-width: 340px !important;
+    border-radius: 20px !important;
+  }
+  .final-celebration-card h2 {
+    font-size: 2.1rem !important;
+  }
+  .final-celebration-card p {
+    font-size: 1.0rem !important;
+  }
+
+  /* Neon sign layer mobile positioning and depth */
+  #neon-sign-layer {
+    padding-top: 10vh !important;
+    z-index: 110 !important;
+  }
+
+  /* Mic Instruction Overlay Mobile styling */
+  .mic-instruction-overlay {
+    width: 90% !important;
+    max-width: 360px !important;
+    padding: 12px 20px !important;
+    border-radius: 24px !important;
+    font-size: 0.95rem !important;
+    text-align: center !important;
+    justify-content: center !important;
+    top: 22% !important;
+  }
+
+  /* People Gathering Layout Mobile Scaling */
+  .person {
+    width: 40px !important;
+    height: 76px !important;
+  }
+  .person-head {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  .person-head .eye {
+    top: 11px !important;
+    width: 4px !important;
+    height: 4px !important;
+  }
+  .person-head .eye.left { left: 7px !important; }
+  .person-head .eye.right { right: 7px !important; }
+  .person-head .smile {
+    bottom: 6px !important;
+    left: 11px !important;
+    width: 6px !important;
+    height: 3px !important;
+  }
+  .person-body {
+    width: 26px !important;
+    height: 38px !important;
+    border-radius: 10px 10px 3px 3px !important;
+    margin-top: -4px !important;
+  }
+  .party-hat {
+    border-left-width: 7px !important;
+    border-right-width: 7px !important;
+    border-bottom-width: 16px !important;
+    top: -12px !important;
+  }
+  .person-arm {
+    width: 5px !important;
+    height: 24px !important;
+  }
+  .person-arm.left-arm { top: 30px !important; }
+  .person-arm.right-arm { top: 30px !important; }
+
+  /* Symmetrical repositioning for mobile to prevent off-screen clipping */
+  #people-layer {
+    top: calc(61vh + 70px) !important;
+  }
+  #people-layer.gathered .person-left-1 {
+    left: calc(50% - 135px) !important;
+  }
+  #people-layer.gathered .person-left-2 {
+    left: calc(50% - 80px) !important;
+  }
+  #people-layer.gathered .person-right-1 {
+    right: calc(50% - 80px) !important;
+  }
+  #people-layer.gathered .person-right-2 {
+    right: calc(50% - 135px) !important;
+  }
+
+  /* Pedestal stand and cake mobile scaling */
+  .cake-stand {
+    top: 61vh !important;
+    transform: translateX(-50%) scale(0.85) !important;
+  }
+
+  /* Baby carrier mobile scaling and alignment */
+  .baby-carrier {
+    top: calc(61vh - 78px) !important;
+    transform: scale(0.85) !important;
+  }
+
+  /* Birthday Photo Mobile styling */
+  .birthday-photo-container {
+    top: 24.5vh !important;
+    width: 155px !important;
+    height: 195px !important;
+    padding: 6px !important;
+    border-radius: 10px !important;
+  }
+  .birthday-photo-container.photo-left {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) scale(0.9) rotate(0deg) !important;
+  }
+  .birthday-photo-container.photo-right {
+    display: none !important;
+  }
+  #neon-sign-layer:not(.hidden) .birthday-photo-container.photo-left {
+    opacity: 1 !important;
+    transform: translateX(-50%) scale(1) rotate(0deg) !important;
+  }
+  .birthday-photo-container.photo-left:hover {
+    transform: translateX(-50%) scale(1.05) rotate(1deg) !important;
+  }
+
+  /* Message envelope mobile adjustments */
+  .message-envelope {
+    width: 60px !important;
+    height: 42px !important;
+    bottom: 3vh !important;
+    right: 5vw !important;
+  }
+  .envelope-flap {
+    width: 60px !important;
+    height: 21px !important;
+  }
+  .envelope-body {
+    width: 60px !important;
+    height: 42px !important;
+    clip-path: polygon(0 0, 0% 100%, 100% 100%, 100% 0, 50% 52%) !important;
+  }
+  .envelope-paper {
+    font-size: 1.4rem !important;
+    top: 6px !important;
+  }
+
+  /* Birthday Letter Mobile styling */
+  .birthday-letter {
+    padding: 20px !important;
+  }
+  .letter-body {
+    font-size: 1.35rem !important;
+    line-height: 1.4 !important;
+  }
+  .letter-line.dear {
+    font-size: 1.6rem !important;
+  }
+  .letter-line.signer {
+    font-size: 2.1rem !important;
+  }
+  .letter-stamp {
+    font-size: 2.0rem !important;
+    top: 10px !important;
+    right: 15px !important;
+  }
+  .memories-card {
+    padding: 20px 15px !important;
+  }
+  
+  /* Curtain open mobile transition */
+  .curtains-wrapper.curtains-open .left-curtain {
+    transform: translateX(-100%) scaleX(0.2);
+  }
+  .curtains-wrapper.curtains-open .right-curtain {
+    transform: translateX(100%) scaleX(0.2);
+  }
+}
