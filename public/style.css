@@ -20,12 +20,16 @@
   padding: 0;
 }
 
+html, body {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
 body {
   background: var(--bg-gradient);
   color: var(--text-main);
   font-family: var(--font-body);
-  min-height: 100vh;
-  overflow-x: hidden;
   position: relative;
   user-select: none;
   -webkit-user-select: none;
@@ -2446,6 +2450,17 @@ body {
     padding-top: 10vh !important;
     z-index: 110 !important;
   }
+  .neon-line-1 {
+    font-size: 3.2rem !important;
+  }
+  .neon-line-2 {
+    font-size: 3.5rem !important;
+    margin-top: -6px !important;
+  }
+  .neon-line-3 {
+    font-size: 2.5rem !important;
+    margin-top: 2px !important;
+  }
 
   /* Mic Instruction Overlay Mobile styling */
   .mic-instruction-overlay {
@@ -2505,16 +2520,16 @@ body {
     top: calc(61vh + 70px) !important;
   }
   #people-layer.gathered .person-left-1 {
-    left: calc(50% - 135px) !important;
+    left: calc(50% - 170px) !important;
   }
   #people-layer.gathered .person-left-2 {
-    left: calc(50% - 80px) !important;
+    left: calc(50% - 115px) !important;
   }
   #people-layer.gathered .person-right-1 {
-    right: calc(50% - 80px) !important;
+    right: calc(50% - 115px) !important;
   }
   #people-layer.gathered .person-right-2 {
-    right: calc(50% - 135px) !important;
+    right: calc(50% - 170px) !important;
   }
 
   /* Pedestal stand and cake mobile scaling */
