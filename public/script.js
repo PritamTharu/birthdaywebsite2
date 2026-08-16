@@ -234,7 +234,7 @@ function createAmbientParticles() {
   const container = document.getElementById("ambient-particles");
   if (!container) return;
   container.innerHTML = "";
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 14; i++) {
     const p = document.createElement("div");
     p.className = "particle";
     const size = Math.random() * 5 + 2;
@@ -1206,14 +1206,15 @@ function spawnSparks(candleElement) {
 }
 
 function triggerFinalCelebration() {
-  const cakeDesc = document.getElementById("cake-desc");
-  if (cakeDesc) {
-    cakeDesc.innerText = "Happy Birthday Neharika! Make a wish! 🎂✨💖";
-  }
-  const bringCakeBtn = document.getElementById("bring-cake-btn");
-  if (bringCakeBtn) {
-    bringCakeBtn.disabled = true;
-    bringCakeBtn.innerText = "Happy Birthday! 🥳";
+  // Immediately hide the entire app-container (button card) — it looks weird sitting there
+  const appContainer = document.getElementById("app-container");
+  if (appContainer) {
+    appContainer.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+    appContainer.style.opacity = "0";
+    appContainer.style.transform = "scale(0.95) translateY(20px)";
+    setTimeout(() => {
+      appContainer.classList.add("hidden");
+    }, 600);
   }
 
   // Trigger continuous corner confetti explosions
@@ -1261,10 +1262,10 @@ function triggerMassiveConfetti() {
       return;
     }
     // Blast from bottom-left corner
-    spawnConfettiGroup(0, window.innerHeight, 25, colors, -45, 50);
+    spawnConfettiGroup(0, window.innerHeight, 15, colors, -45, 50);
     // Blast from bottom-right corner
-    spawnConfettiGroup(window.innerWidth, window.innerHeight, 25, colors, -135, 50);
-  }, 800);
+    spawnConfettiGroup(window.innerWidth, window.innerHeight, 15, colors, -135, 50);
+  }, 1200);
 }
 
 function spawnConfettiGroup(x, y, count, colors, angleBase, angleSpread) {
@@ -1386,33 +1387,13 @@ function fadeDecoratorsAndShowWishButton() {
   if (wishButtonShown) return;
   wishButtonShown = true;
 
-  // Fade out the cake decorator card
-  const cakeStage = document.getElementById("cake-stage");
-  if (cakeStage) {
-    cakeStage.style.transition = "opacity 0.8s ease, transform 0.8s ease";
-    cakeStage.style.opacity = "0";
-    cakeStage.style.transform = "translateY(20px)";
-    setTimeout(() => {
-      cakeStage.classList.add("hidden");
-
-      // Hide the entire app control container
-      const appContainer = document.getElementById("app-container");
-      if (appContainer) {
-        appContainer.style.transition = "opacity 1.5s ease, transform 1.5s ease";
-        appContainer.style.opacity = "0";
-        appContainer.style.transform = "scale(0.97)";
-        setTimeout(() => {
-          appContainer.classList.add("hidden");
-          // Reveal the "Make a Wish" button at the bottom center
-          const writeWishBtn = document.getElementById("write-wish-btn");
-          if (writeWishBtn) {
-            writeWishBtn.classList.remove("hidden");
-            writeWishBtn.offsetHeight; // force reflow
-            writeWishBtn.classList.add("reveal");
-          }
-        }, 1500);
-      }
-    }, 800);
+  // App container is already hidden by triggerFinalCelebration()
+  // Just reveal the "Make a Wish" button
+  const writeWishBtn = document.getElementById("write-wish-btn");
+  if (writeWishBtn) {
+    writeWishBtn.classList.remove("hidden");
+    writeWishBtn.offsetHeight; // force reflow
+    writeWishBtn.classList.add("reveal");
   }
 }
 
@@ -2043,15 +2024,62 @@ function showFinalCelebrationMessage() {
     setTimeout(() => {
       wishesText.remove();
       
-      // Reveal the secret message box now as a post-credits surprise!
-      const messageBox = document.getElementById("message-box");
-      if (messageBox) {
-        messageBox.classList.remove("hidden");
-        messageBox.offsetHeight; // force reflow
-        messageBox.classList.add("reveal");
-      }
+      // 🐦 Pigeon delivers the letter!
+      launchPigeonDelivery();
     }, 1000);
   }, 4500);
+}
+
+// ============================================================
+//  PIGEON LETTER DELIVERY ANIMATION
+// ============================================================
+
+function launchPigeonDelivery() {
+  const messageBox = document.getElementById("message-box");
+  if (!messageBox) return;
+
+  // Create the pigeon container
+  const pigeon = document.createElement("div");
+  pigeon.className = "delivery-pigeon";
+  pigeon.innerHTML = `
+    <div class="pigeon-body">
+      <div class="pigeon-head">
+        <div class="pigeon-eye"></div>
+        <div class="pigeon-beak"></div>
+      </div>
+      <div class="pigeon-wing left-wing"></div>
+      <div class="pigeon-wing right-wing"></div>
+      <div class="pigeon-tail"></div>
+      <div class="pigeon-letter">💌</div>
+    </div>
+  `;
+  document.body.appendChild(pigeon);
+
+  // Play a gentle wing flap sound
+  playSynthNote(800, 'sine', 0.08, 0.05);
+  setTimeout(() => playSynthNote(900, 'sine', 0.08, 0.04), 400);
+  setTimeout(() => playSynthNote(700, 'sine', 0.08, 0.04), 800);
+
+  // After the pigeon reaches the drop point (~5s at 60% of 8s flight), drop the envelope
+  setTimeout(() => {
+    // Hide the letter from the pigeon
+    const pigeonLetter = pigeon.querySelector(".pigeon-letter");
+    if (pigeonLetter) pigeonLetter.style.opacity = "0";
+
+    // Show the envelope at its final position
+    messageBox.classList.remove("hidden");
+    messageBox.offsetHeight;
+    messageBox.classList.add("reveal");
+
+    // Play a little "plop" sound for the letter drop
+    playSynthNote(400, 'triangle', 0.15, 0.1);
+    setTimeout(() => playSynthNote(300, 'triangle', 0.1, 0.08), 100);
+  }, 5000);
+
+  // After the pigeon exits (~9s), clean up
+  setTimeout(() => {
+    pigeon.remove();
+  }, 9000);
 }
 
 // ============================================================
